@@ -1,2 +1,2 @@
-# OOOP_LAB1_4TERM
- Uml+Refactoring
+# OOOP_LAB3a_4TERM
+Multithreading 
