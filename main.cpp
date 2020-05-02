@@ -1,50 +1,57 @@
 #include <iostream>
-//#include "List.h"
-#include "Lists/ArrayList.h"
-#include "Lists/l2.h"
-#include "Lists/list2.h"
-#include <string>
-#include "Library/Book.h"
-
+#include "BlockingQueue.h"
+#include <thread>
+#include <chrono>
+//#include "Time.h"
+#include "Queue.h"
 using namespace std;
 
+
+void Oper(){
+    this_thread::sleep_for(chrono::milliseconds(1000));
+    cout<< "Any operations"<<endl;
+}
+
+
 int main() {
-    /*List head;
-    head.add(1);
-    head.add(5);
-    head.show();
-    cout<< endl;*/
-    ArrayList temp;
-    temp.Insert(14,1);
-    temp.Insert(25,2);
-    temp.PrintList();
+    auto start = std::chrono::high_resolution_clock::now();
 
-    List<int> intList; //creates order linked list
-    intList.insertNewNode(12);
-    intList.insertNewNode(45);
-    intList.insertNewNode(5);
-    intList.insertNewNode(14);
-    intList.print();
-    string f1= "IVAN";
-    string f2= "ALEX";
-    string f3 = "JOHN";
-    Book*first= new Book();
-    Book*second= new Book();
-    Book*third= new Book();
+    chrono::high_resolution_clock now;
+/*    BlockingQueue<int> que;
 
-    first->SetBook("Harry","Rol",145,"dfgdfgd",90);
-    second->SetBook("John","Role",15,"dfgfddfgd",56);
-    third->SetBook("Alex","Rl",157,"dfgdfgfghfd",10);
+    bool temp;
 
-    List<string> name;
-    name.insertNewNode(f2);
-    name.insertNewNode(f3);
-    name.insertNewNode(f1);
-    name.print();
-    List<Book> books;
-    books.insertNewNode(*first);
-    books.insertNewNode(*second);
-    books.insertNewNode(*third);
-    books.print();
+    thread first([&]{
+        que.Put(5);
+    });
+    thread second([&]{
+        que.Put(5);
+    });
+    thread third([&]{
+        que.Put(5);
+    });
+    first.join();
+    second.join();
+    third.join();
+
+cout << que.Size();*/
+
+    Queue<int> tt;
+    cout<<endl;
+    tt.insert(3);
+    tt.insert(4);
+    tt.insert(45);
+    if(!tt.empty())
+        cout<<"not empty"<<endl;
+    cout << tt.getFront()<<endl;
+    cout<< tt.getBack()<<endl;
+    tt.display();
+    tt.popFront();
+    tt.display();
+
+    thread
+    auto end= std::chrono::high_resolution_clock::now();
+    std::chrono::duration<float >duration=end-start;
+    std::cout<<"Duration: "<< duration.count() << std::endl;
     return 0;
 }
