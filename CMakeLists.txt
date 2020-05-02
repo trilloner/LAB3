@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.15)
-project(LAB1)
+project(Thread_Queue)
 
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 17)
 
-add_executable(LAB1 main.cpp Lists/List.cpp Lists/List.h Lists/ArrayList.h Lists/ArrayList.cpp Lists/CircularList.h Lists/CircularList.cpp Library/Book.h Library/Book.cpp Library/Series.h Library/Series.cpp Library/Character.h Library/Character.cpp)
+add_executable(Thread_Queue main.cpp BlockingQueue.inl BlockingQueue.h Time.h Node.cpp Node.h Queue.h Queue.inl)
