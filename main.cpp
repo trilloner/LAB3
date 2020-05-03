@@ -17,39 +17,72 @@ int main() {
     auto start = std::chrono::high_resolution_clock::now();
 
     chrono::high_resolution_clock now;
-/*    BlockingQueue<int> que;
+  /*BlockingQueue<int> que;
 
     bool temp;
 
     thread first([&]{
-        que.Put(5);
+        que.Take();
     });
+
     thread second([&]{
-        que.Put(5);
+        que.Put(6);
     });
     thread third([&]{
-        que.Put(5);
+        cout << que.Back();
     });
+    thread ff([&]{
+        que.Put(23);
+    });
+
     first.join();
     second.join();
     third.join();
-
-cout << que.Size();*/
-
-    Queue<int> tt;
+    ff.join();
+    cout<< endl;
+    cout << que.Size();
+*/
+   Queue<int> tt;
     cout<<endl;
+    thread first([&]{
+        tt.popFront();
+    });
+    thread second([&]{
+        tt.insert(4);
+    });
+    cout << tt.getSize() << "-siz";
+    thread third([&]{
+
+        tt.display();
+    });
+    thread fr([&]{
+        tt.insert(2);
+    });
+    thread ff([&]{
+        tt.display();
+    });
+
+
+
+
+    first.join();
+    second.join();
+    third.join();
+    fr.join();
+    ff.join();
+
+//tt.display();
     tt.insert(3);
-    tt.insert(4);
+
     tt.insert(45);
-    if(!tt.empty())
+    if(!tt.isEmpty())
         cout<<"not empty"<<endl;
     cout << tt.getFront()<<endl;
     cout<< tt.getBack()<<endl;
     tt.display();
-    tt.popFront();
     tt.display();
+    cout << tt.getSize();
 
-    thread
     auto end= std::chrono::high_resolution_clock::now();
     std::chrono::duration<float >duration=end-start;
     std::cout<<"Duration: "<< duration.count() << std::endl;
