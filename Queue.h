@@ -1,34 +1,39 @@
-//
-// Created by mamko on 02.05.2020.
-//
-
+/**
+ * 2nd Course K-28
+ * Lab 3a
+ * Task: Create multithreading queue
+ *
+ * Purpose: contains implementation about single Queue
+ *
+ *@author Bogdan Volokhonenko
+ *@version 4/5/20
+ */
 #ifndef THREAD_QUEUE_QUEUE_H
 #define THREAD_QUEUE_QUEUE_H
-#include <iostream>
-#include <cstddef>
-#include "Node.h"
-#include <condition_variable>
-#include <assert.h>
 
-template <class  T>
-class Queue{
+
+#include "QueueInterface.h"
+#include "Node.h"
+
+
+template<typename T>
+class Queue:public QueueInterface<T>{
 public:
-    Queue(): mtx(), full(), empty(),front(NULL),rear(NULL),size(0){ }
+    Queue();
     ~Queue();
-    void insert(const T& data);
-    void popFront();
-    int getSize();
-    bool isEmpty();
-    T getFront();
-    T getBack();
-    void display();
+    void insert(const T& data) override;
+    void popFront() override;
+    int getSize() override;
+    bool isEmpty() override;
+    T getFront() override;
+    T getBack() override;
+    void display() override;
+
 private:
     int size;
     Node<T>*front,*rear;
-    mutable std::mutex mtx;
-    std::condition_variable full;
-    std::condition_variable empty;
 };
+
 
 #include "Queue.inl"
 #endif //THREAD_QUEUE_QUEUE_H
