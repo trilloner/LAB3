@@ -4,10 +4,11 @@
 #include <iostream>
 #include "Queue.h"
 #include <thread>
-#include <chrono>
-#include "Queue.h"
 #include "TheadQueue.h"
 using namespace std;
+/**
+ * Console Interface
+ */
 inline void demo(){
     Queue<int> test;
     TheadQueue<int>test2;
