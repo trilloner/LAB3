@@ -74,54 +74,7 @@ private:
 
 };
 
-/**
-* Default constructor
-*/
-template <class T>
-Node<T>::Node() {
-    next=0;
-    prev=0;
-}
-/**
- * Constructor with Template param
- *
- * @param value will be added in templatized data stored in node
- */
-template <class T>
-Node<T>::Node(T value) {
-    data = value;
-    next= 0;
-    prev= 0;
-}
-/**
- * Returns templatized data stored in node
- *
- * @return data
- */
-template <class T>
-T Node<T>::getData() const {
-    return data;
-}
-
-/**
- * Returns pointer to the next Node in the list
- *
- * @return next
- */
-template<class T>
-Node<T>* Node<T>::getNext() const {
-    return next;
-}
-/**
- * Returns pointer to the previous Node in the list
- *
- * @return prev
- */
-template<class T>
-Node<T>* Node<T>::getPrevious() const {
-    return prev;
-}
-
+#include "Node.inl"
 
 
 #endif //THREAD_QUEUE_NODE_H
