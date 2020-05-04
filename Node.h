@@ -1,16 +1,28 @@
-//
-// Created by mamko on 02.05.2020.
-//
-
+/**
+ * 2nd Course K-28
+ * Lab 3a
+ * Task: Create multithreading queue
+ *
+ * Purpose: contains declaration about Node for queue
+ *
+ *@author Bogdan Volokhonenko
+ *@version 4/5/20
+ */
 #ifndef THREAD_QUEUE_NODE_H
 #define THREAD_QUEUE_NODE_H
 
 
 /**
- * Template CircleList class that Node will use
+ * Template Queue class that Node will use
  */
 template <typename T>
 class Queue;
+/**
+ * Template Thread Queue class that Node will use
+ *
+ */
+template <class T>
+class TheadQueue;
 
 /**
  * Template class of the Node to be contained in the lists
@@ -19,6 +31,7 @@ template <typename T>
 class Node
 {
     friend class Queue<T>; ///< friend class which will be using Node structure
+    friend class TheadQueue<T>; ///< friend class which will be using Node structure
 public:
 
     /**
