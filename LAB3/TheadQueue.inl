@@ -35,6 +35,8 @@ TheadQueue<T>::~TheadQueue() {
     */
 template <class T>
 void TheadQueue<T>::insert(const T& data) {
+    std::cout << std::this_thread::get_id() << " thread waiting to add  " << data << " to the queue"<<std::endl;
+
     std::unique_lock<std::mutex> lock(mtx);///< lock another threads while one thread using it
     Node<T> *temp=new Node<T>;
     temp->data=data;
@@ -48,6 +50,8 @@ void TheadQueue<T>::insert(const T& data) {
     }
     size++;
     empty.notify_all();///<continue all threads
+    std::cout << std::this_thread::get_id() << " thread added  " << data << " to the queue"<<std::endl;
+
 }
 
 /**
@@ -57,6 +61,7 @@ void TheadQueue<T>::insert(const T& data) {
     */
 template <class T>
 bool TheadQueue<T>::isEmpty() {
+    std::cout << std::this_thread::get_id() <<" thread checks if the queue is empty or not"<<std::endl;
     if(front == NULL && rear == NULL)
         return true;
     else
@@ -70,9 +75,11 @@ template <class T>
 void TheadQueue<T>::popFront() {
     std::unique_lock<std::mutex> lock(mtx);///< lock another threads while one thread using it
     while(isEmpty()){
+        std::cout << std::this_thread::get_id() <<" thread  stops  until an element will be added "<<std::endl;
         empty.wait(lock); ///<stop all threads and waiting while in queue will be added value
     }
-assert(!isEmpty());
+
+    assert(!isEmpty());
  if(front==rear){
     delete (front);
     front=rear=NULL;
@@ -84,6 +91,8 @@ else{
     delete(temp);
     size--;
 }
+    std::cout << std::this_thread::get_id() <<" thread  deleted first element from queue "<<std::endl;
+
 }
 
 
@@ -97,6 +106,7 @@ T TheadQueue<T>::getBack() {
 
     std::unique_lock<std::mutex> lock(mtx);///< lock another threads while one thread using it
     assert(rear!=NULL);
+    std::cout << std::this_thread::get_id() << " thread returned element from back"<<std::endl;
 
     return rear->data;
 }
@@ -110,6 +120,7 @@ template <class T>
 T TheadQueue<T>::getFront() {
     std::unique_lock<std::mutex> lock(mtx);///< lock another threads while one thread using it
     assert(front!=NULL);
+    std::cout << std::this_thread::get_id() << " thread returned element from front"<<std::endl;
 
     return front->data;
 }
@@ -137,6 +148,7 @@ void TheadQueue<T>::display() {
     assert(front!=NULL);
     Node<T> *temp=front;
     //will check until NULL is not found
+    std::cout << "Display queue: "<<" ";
     while(temp){
         std::cout<<temp->data<<" ";
         temp=temp->next;
