@@ -9,243 +9,59 @@ using namespace std;
 /**
  * Console Interface
  */
-inline void demo(){
-    Queue<int> test;
-    TheadQueue<int>test2;
-    cout<< "Select type of Queue:"<< endl;
-    cout<< "1. Queue"<< endl;
-    cout <<"2. Threading Queue"<<endl;
-    cout<< "0. Exit"<<endl;
-    int que,opt;
-    while(1){
-        cin>>que;
-        while(1){
-         if(que>=3){
-            cout<<"Select 0 or 1 or 2. Try again" << endl;
-            cin>>que;
-            }
-         else
-             break;
+inline void demo() {
+    cout << "Testing thread queue" << endl;
+    this_thread::sleep_for(chrono::milliseconds(1000));
+    cout<< "Preparing threads..." << endl;
+    this_thread::sleep_for(chrono::milliseconds(1000));
+    cout<< "Init thread queue" << endl;
+    this_thread::sleep_for(chrono::milliseconds(1000));
+
+    TheadQueue<int> test;
+    cout << "Now will be added 30 elements and deleting 10 items by 4 threads" << endl;
+    this_thread::sleep_for(chrono::milliseconds(1000));
+
+    thread fifth([&]{
+        for (int i = 0; i <5 ; ++i) {
+            test.popFront();
         }
-        switch(que){
+    });
+    thread second([&]{
+          for (int i=0; i<10; i++){
+              test.insert(i);
+          }
+      });
 
-            case 1:{
-                tryAgain:
-                cout<< "Select option:"<<endl;
-                cout<< "1.Add number"<<endl;
-                cout<< "2.Delete number"<<endl;
-                cout<< "3.Get first number"<<endl;
-                cout<< "4.Get last number"<<endl;
-                cout<< "5.Get size"<<endl;
-                cout<< "6.Display numbers"<<endl;
-                cout<< "0. Exit"<<endl;
+    std::thread third([&]{
+          for (int i=10; i<20; i++){
+              test.insert(i);
+          }
+      });
 
-                cin>>opt;
-                while(1){
-                    if(opt<0 || opt>6){
-                        cout<<"Select  1 - 6. Try again" << endl;
-                        cin>>opt;
-                    }
-                    else
-                        break;
-                }
-                switch (opt){
-                    case 1:{
-                        cout<<"1.Random"<<endl;
-                        cout<< "2. User"<<endl;
-                        int ql;
-                        cin>>ql;
-                        if(ql==1) {
-                            test.insert(rand() % 129);
-                            cout << "Added";
-                            goto tryAgain;
-
-                        }
-                        else if(ql==2) {
-                            int user;
-                            cout << "Input: ";
-                            cin >> user;
-                            test.insert(user);
-                            goto tryAgain;
-
-                        }
-                        goto tryAgain;
-
-                    }
-                    case 2:{
-                        if(test.isEmpty()){
-                            cout<<"Queue is empty. Add numbers. Press 0"<<endl;
-                            goto tryAgain;
-                        }
-                        else{
-                            test.popFront();
-                            cout<< "Deleted"<<endl;
-                            goto tryAgain;
-
-                        }
-
-                    }
-                    case 3:{
-                        if(test.isEmpty()){
-                            cout<<"Queue is empty. Add numbers. Press 0"<<endl;
-                            goto tryAgain;
-                        }
-                        else{
-                            cout<< "First  element: "<< test.getFront()<<endl;
-                        }
-                        goto tryAgain;
-
-                    }
-                    case 4:{
-                        if(test.isEmpty()){
-                            cout<<"Queue is empty. Add numbers. Press 0"<<endl;
-                            goto tryAgain;
-                        }
-                        else{
-                            cout<< "Last element: "<< test.getBack()<<endl;
-                        }
-                        goto tryAgain;
-                    }
-                    case 5:{
-                        cout<< "Size: "<<test.getSize()<<endl;
-                        goto tryAgain;
-                    }
-                    case 6:{
-                        if(test.isEmpty()){
-                            cout<<"Queue is empty. Add numbers. Press 0"<<endl;
-                            goto tryAgain;
-                        }
-                        else{
-                            test.display();
-                        }
-                        goto tryAgain;
-                    }
-                    default:{
-                    return;
-                    }
-                }
-
-            }
-            case 2:{
-                tryAgain2:
-                cout<< "Select option:"<<endl;
-                cout<< "1.Add number"<<endl;
-                cout<< "2.Delete number"<<endl;
-                cout<< "3.Get first number"<<endl;
-                cout<< "4.Get last number"<<endl;
-                cout<< "5.Get size"<<endl;
-                cout<< "6.Display numbers"<<endl;
-                cout<< "0. Exit"<<endl;
-                cin>>opt;
-                while(1){
-                    if(opt<0 || opt>6){
-                        cout<<"Select  1 - 6. Try again" << endl;
-                        cin>>opt;
-                    }
-                    else
-                        break;
-                }
-                switch (opt){
-                    case 1:{
-                        cout<<"1.Random"<<endl;
-                        cout<< "2. User"<<endl;
-                        int ql;
-                        cin>>ql;
-                        if(ql==1) {
-                            const int randNum= rand() % 129;
-                            thread first([&]{test2.insert(randNum);});
-                            first.join();
-                            cout << "Added";
-                            goto tryAgain2;
-
-                        }
-                        else if(ql==2) {
-                             int user;
-                            cout << "Input: ";
-                            cin >> user;
-                            const int tt =user;
-                            thread first([&]{test2.insert(tt);});
-                            first.join();
-                            goto tryAgain2;
-                        }
-                        goto tryAgain2;
-
-                    }
-                    case 2:{
-                        if(test.isEmpty()){
-                            cout<<"Queue is empty. Add numbers. Press 0"<<endl;
-                            goto tryAgain2;
-                        }
-                        else{
-                            thread first([&]{test2.popFront();});
-                            first.join();
-                            cout<< "Deleted"<<endl;
-                            goto tryAgain2;
-                        }
-
-                    }
-                    case 3:{
-                        if(test.isEmpty()){
-                            cout<<"Queue is empty. Add numbers. Press 0"<<endl;
-                            goto tryAgain;
-                        }
-                        else{
-                            thread first([&]{
-                                cout<< "First  element: "<< test2.getFront() <<endl;
-                            });
-                            first.join();
-
-                        }
-                        goto tryAgain;
-
-                    }
-                    case 4:{
-                        if(test.isEmpty()){
-                            cout<<"Queue is empty. Add numbers. Press 0"<<endl;
-                            goto tryAgain;
-                        }
-                        else{
-                            thread first([&]{
-                                cout<< "Last  element: "<< test2.getBack() <<endl;
-                            });
-                            first.join();
-
-                        }
-                        goto tryAgain;
-                    }
-                    case 5:{
-                        thread first([&]{
-                            cout<< "Size: "<< test2.getSize() <<endl;
-                        });
-                        first.join();
-
-                        goto tryAgain;
-                    }
-                    case 6:{
-                        if(test.isEmpty()){
-                            cout<<"Queue is empty. Add numbers. Press 0"<<endl;
-                            goto tryAgain;
-                        }
-                        else{
-                            thread first([&]{
-                                test2.display() ;
-                                cout<<endl;
-                            });
-                            first.join();
-                        }
-                        goto tryAgain;
-                    }
-                    default:{
-                       return;
-                    }
-                }
-
-            }
+    std::thread fourth ([&]{
+    for (int i=20; i<30; i++){
+            test.insert(i);
         }
-        return;
-    }
+    });
 
+  fourth.join();
+  third.join();
+  second.join();
+  fifth.join();
 
+    cout << "Now will be returned front and back elements" << endl;
+    this_thread::sleep_for(chrono::milliseconds(1000));
+    std::thread front ([&]{
+        test.getFront();
+    });
+    std::thread back ([&]{
+        test.getBack();
+    });
+    front.join();
+    back.join();
+    cout << "Now will be displayed queue" << endl;
+    this_thread::sleep_for(chrono::milliseconds(1000));
 
+    test.display();
 
 }
